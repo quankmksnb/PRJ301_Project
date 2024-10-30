@@ -8,23 +8,31 @@ import java.sql.*;
  *
  * @author Admin
  */
-public class PlanCampaign {
+public class ScheduleCampaign {
+    private int scid;
     private int canid;
-    private int plid;
-    private int pid;
+    private Date date;
+    private String shift;
     private int quantity;
-    private float estimatedEffort;
 
     // Constructor
-    public PlanCampaign(int canid, int plid, int pid, int quantity, float estimatedEffort) {
+    public ScheduleCampaign(int scid, int canid, Date date, String shift, int quantity) {
+        this.scid = scid;
         this.canid = canid;
-        this.plid = plid;
-        this.pid = pid;
+        this.date = date;
+        this.shift = shift;
         this.quantity = quantity;
-        this.estimatedEffort = estimatedEffort;
     }
 
     // Getters and setters
+    public int getScid() {
+        return scid;
+    }
+
+    public void setScid(int scid) {
+        this.scid = scid;
+    }
+
     public int getCanid() {
         return canid;
     }
@@ -33,20 +41,20 @@ public class PlanCampaign {
         this.canid = canid;
     }
 
-    public int getPlid() {
-        return plid;
+    public Date getDate() {
+        return date;
     }
 
-    public void setPlid(int plid) {
-        this.plid = plid;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public int getPid() {
-        return pid;
+    public String getShift() {
+        return shift;
     }
 
-    public void setPid(int pid) {
-        this.pid = pid;
+    public void setShift(String shift) {
+        this.shift = shift;
     }
 
     public int getQuantity() {
@@ -55,13 +63,5 @@ public class PlanCampaign {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public float getEstimatedEffort() {
-        return estimatedEffort;
-    }
-
-    public void setEstimatedEffort(float estimatedEffort) {
-        this.estimatedEffort = estimatedEffort;
     }
 }
