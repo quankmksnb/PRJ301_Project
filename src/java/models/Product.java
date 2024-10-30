@@ -9,5 +9,33 @@ package models;
  * @author Admin
  */
 public class Product {
-    
+
+    private int pid;
+    private String pname;
+
+    public Product() {
+    }
+
+    // Constructor
+    public Product(int pid, String pname) {
+        this.pid = pid;
+        this.pname = pname;
+    }
+
+    // Getters and setters
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public void setPname(String pname) {
+        this.pname = pname;
+    }
 }
