@@ -4,9 +4,29 @@
         <servlet-name>ProductCreateController</servlet-name>
         <servlet-class>controller.ProductCreateController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EmployeeCreateController</servlet-name>
+        <servlet-class>controller.employee.EmployeeCreateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmployeeUpdateController</servlet-name>
+        <servlet-class>controller.employee.EmployeeUpdateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmployeeDeleteController</servlet-name>
+        <servlet-class>controller.employee.EmployeeDeleteController</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>ProductCreateController</servlet-name>
-        <url-pattern>/product/create</url-pattern>
+        <servlet-name>EmployeeCreateController</servlet-name>
+        <url-pattern>/employees/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeUpdateController</servlet-name>
+        <url-pattern>/employees/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeDeleteController</servlet-name>
+        <url-pattern>/employees/delete</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>
