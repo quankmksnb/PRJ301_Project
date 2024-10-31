@@ -6,13 +6,12 @@
             <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/Department.java</file>
             <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/Feature.java</file>
             <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/PlanCampaign.java</file>
-            <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/WorkSchedule.java</file>
+            <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/ScheduleCampaign.java</file>
             <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/Employee.java</file>
-            <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/dal/DBContext.java</file>
-            <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/Role.java</file>
             <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/Plan.java</file>
+            <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/Role.java</file>
             <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/Attendance.java</file>
-            <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/ScheduleCampaiqn.java</file>
+            <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/WorkerSchedule.java</file>
             <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/User.java</file>
             <file>file:/D:/TaiLieu/PRJ301/Assignment/src/java/models/Product.java</file>
         </group>

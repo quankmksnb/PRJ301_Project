@@ -39,5 +39,4 @@ public abstract class DBContext<T> {
     public abstract ArrayList<T> list();
     public abstract T get(int id);
     
-    
 }
