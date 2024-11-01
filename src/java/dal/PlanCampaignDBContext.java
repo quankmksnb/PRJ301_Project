@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dal;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 import models.Department;
 import models.Employee;
 import models.PlanCampaign;
+
 /**
  *
  * @author Admin
@@ -71,11 +73,43 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
 
     @Override
     public PlanCampaign get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ProductDBContext pd = new ProductDBContext();
+        PlanDBContext pld = new PlanDBContext();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = "select * from [PlanCampaign] where canid = ?";
+
+            ps = connection.prepareStatement(sql);     // chuyển câu lệnh sang sql server
+            ps.setInt(1, id);
+            rs = ps.executeQuery();                // thay có việc run bên sql server
+
+            while (rs.next()) {
+                PlanCampaign e = new PlanCampaign();
+                e.setCanid(rs.getInt(1));          // rs thể hiện thay thế các thứ tự cột khi chạy câu lệnh
+                e.setPlan(pld.get(rs.getInt(2)));
+                e.setProduct(pd.get(rs.getInt(3)));
+                e.setQuantity(rs.getInt(4));
+                e.setEstimatedEffort(rs.getInt(5));
+
+                return e;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
-    
+
     public static void main(String[] args) {
         PlanCampaignDBContext p = new PlanCampaignDBContext();
-        System.out.println(p.list());
+        System.out.println(p.get(1));
     }
 }

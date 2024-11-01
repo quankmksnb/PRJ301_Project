@@ -9,20 +9,23 @@ package models;
  * @author Admin
  */
 public class WorkerSchedule {
+
     private int wsid;
-    private int scid;
-    private String eid;
+    private ScheduleCampaign scheduleCampaign;
+    private Employee employee;
     private int quantity;
 
     // Constructor
-    public WorkerSchedule(int wsid, int scid, String eid, int quantity) {
+    public WorkerSchedule() {
+    }
+
+    public WorkerSchedule(int wsid, ScheduleCampaign scheduleCampaign, Employee employee, int quantity) {
         this.wsid = wsid;
-        this.scid = scid;
-        this.eid = eid;
+        this.scheduleCampaign = scheduleCampaign;
+        this.employee = employee;
         this.quantity = quantity;
     }
 
-    // Getters and setters
     public int getWsid() {
         return wsid;
     }
@@ -31,20 +34,20 @@ public class WorkerSchedule {
         this.wsid = wsid;
     }
 
-    public int getScid() {
-        return scid;
+    public ScheduleCampaign getScheduleCampaign() {
+        return scheduleCampaign;
     }
 
-    public void setScid(int scid) {
-        this.scid = scid;
+    public void setScheduleCampaign(ScheduleCampaign scheduleCampaign) {
+        this.scheduleCampaign = scheduleCampaign;
     }
 
-    public String getEid() {
-        return eid;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEid(String eid) {
-        this.eid = eid;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public int getQuantity() {
@@ -54,4 +57,12 @@ public class WorkerSchedule {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+   
+
+    @Override
+    public String toString() {
+        return "WorkerSchedule{" + "wsid=" + wsid + ", scheduleCampaign=" + scheduleCampaign + ", employee=" + employee + ", quantity=" + quantity + '}';
+    }
+
 }

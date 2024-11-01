@@ -10,19 +10,25 @@ import java.sql.*;
  */
 public class ScheduleCampaign {
     private int scid;
-    private int canid;
+    private PlanCampaign planCampaign;
     private Date date;
     private String shift;
     private int quantity;
 
     // Constructor
-    public ScheduleCampaign(int scid, int canid, Date date, String shift, int quantity) {
+
+    public ScheduleCampaign(int scid, PlanCampaign planCampaign, Date date, String shift, int quantity) {
         this.scid = scid;
-        this.canid = canid;
+        this.planCampaign = planCampaign;
         this.date = date;
         this.shift = shift;
         this.quantity = quantity;
     }
+    
+
+    public ScheduleCampaign() {
+    }
+    
 
     // Getters and setters
     public int getScid() {
@@ -33,14 +39,15 @@ public class ScheduleCampaign {
         this.scid = scid;
     }
 
-    public int getCanid() {
-        return canid;
+    public PlanCampaign getPlanCampaign() {
+        return planCampaign;
     }
 
-    public void setCanid(int canid) {
-        this.canid = canid;
+    public void setPlanCampaign(PlanCampaign planCampaign) {
+        this.planCampaign = planCampaign;
     }
 
+   
     public Date getDate() {
         return date;
     }
@@ -64,4 +71,12 @@ public class ScheduleCampaign {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return "ScheduleCampaign{" + "scid=" + scid + ", planCampaign=" + planCampaign + ", date=" + date + ", shift=" + shift + ", quantity=" + quantity + '}';
+    }
+    
+    
+    
 }

@@ -25,8 +25,20 @@
         <servlet-class>controller.plan.PlanListController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PlanCampaignController</servlet-name>
-        <servlet-class>controller.plancampaign.PlanCampaignController</servlet-class>
+        <servlet-name>PlanCampaignListController</servlet-name>
+        <servlet-class>controller.plancampaign.PlanCampaignListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlanCreateController</servlet-name>
+        <servlet-class>controller.plan.PlanCreateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlanDeleteControler</servlet-name>
+        <servlet-class>controller.plan.PlanDeleteControler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlanUpdateController</servlet-name>
+        <servlet-class>controller.plan.PlanUpdateController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EmployeeCreateController</servlet-name>
@@ -49,8 +61,20 @@
         <url-pattern>/plans/list</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PlanCampaignController</servlet-name>
+        <servlet-name>PlanCampaignListController</servlet-name>
         <url-pattern>/plancampaign/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlanCreateController</servlet-name>
+        <url-pattern>/plans/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlanDeleteControler</servlet-name>
+        <url-pattern>/plans/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlanUpdateController</servlet-name>
+        <url-pattern>/plans/update</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>

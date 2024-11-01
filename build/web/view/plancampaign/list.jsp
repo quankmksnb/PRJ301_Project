@@ -20,9 +20,6 @@
                 text-align: center;
                 vertical-align: middle;
             }
-            td:nth-child(2) {
-                text-align: left;
-            }
             .card {
                 border-radius: 15px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -53,19 +50,21 @@
                         </thead>
                         <tbody>
                             <c:forEach var="planCampaign" items="${planCampaignList}">
-                                <tr>
-                                    <td>${planCampaign.canid}</td>
-                                    <td>${planCampaign.plan.plid}</td>
-                                    <td>${planCampaign.product.pname}</td>
-                                    <td>${planCampaign.quantity}</td>
-                                    <td>${planCampaign.estimatedEffort}</td>
-                                    <td>
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                                            <a onclick="#" class="btn btn-danger btn-sm">Delete</a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <c:if test="${planCampaign.plan.plid eq param.plid}">
+                                    <tr>
+                                        <td>${planCampaign.canid}</td>
+                                        <td>${planCampaign.plan.plid}</td>
+                                        <td>${planCampaign.product.pname}</td>
+                                        <td>${planCampaign.quantity}</td>
+                                        <td>${planCampaign.estimatedEffort}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                                <a onclick="#" class="btn btn-danger btn-sm">Delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:if>
                             </c:forEach>
                         </tbody>
                     </table>

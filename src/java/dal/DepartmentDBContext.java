@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dal;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,14 +12,52 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Department;
 import models.Product;
+
 /**
  *
  * @author Admin
- *//**
+ */
+/**
  *
  * @author Admin
  */
-public class DepartmentDBContext extends DBContext<Department>{
+public class DepartmentDBContext extends DBContext<Department> {
+
+    public ArrayList<Department> get(String type) {
+        ArrayList<Department> depts = new ArrayList<>();
+
+        String sql = "SELECT [did]\n"
+                + "      ,[dname]\n"
+                + "      ,[dtype]\n"
+                + "  FROM [Department]\n"
+                + "  WHERE dtype = ?";
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, type);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Department d = new Department();
+                d.setDid(rs.getInt(1));
+                d.setDname(rs.getString(2));
+                d.setDtype(rs.getString(3));
+                depts.add(d);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DepartmentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DepartmentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return depts;
+    }
 
     @Override
     public void insert(Department model) {
@@ -72,8 +111,9 @@ public class DepartmentDBContext extends DBContext<Department>{
         }
         return null;
     }
+
     public static void main(String[] args) {
         DepartmentDBContext d = new DepartmentDBContext();
-        System.out.println(d.get(2));
+        System.out.println(d.get("workshop"));
     }
 }

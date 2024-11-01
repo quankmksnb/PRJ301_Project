@@ -21,9 +21,6 @@
                 text-align: center;
                 vertical-align: middle;
             }
-            td:nth-child(2) {
-                text-align: left;
-            }
             .card {
                 border-radius: 15px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -38,7 +35,7 @@
             <div class="card p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2 class="m-0">Plan List</h2>
-                    <a href="#" class="btn btn-success btn-create">Create New Plan</a>
+                    <a href="../plans/create" class="btn btn-success btn-create">Create New Plan</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
@@ -60,8 +57,9 @@
                                     <td>${plan.department.dname}</td>
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
+                                            <a href="../plancampaign/list?plid=${plan.plid}" class="btn btn-info btn-sm text-white">Details</a>
                                             <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                                            <a onclick="#" class="btn btn-danger btn-sm">Delete</a>
+                                            <a onclick="deleteHandler(${plan.plid})" class="btn btn-danger btn-sm">Delete</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -71,5 +69,13 @@
                 </div>
             </div>
         </div>
+        <script>
+            function deleteHandler(productId) {
+                var check = confirm("Bạn có chắc chắn muốn xóa?");
+                if (check) {
+                    window.location.href = "delete?plid=" + productId;
+                }
+            }
+        </script>
     </body>
 </html>
