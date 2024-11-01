@@ -24,6 +24,10 @@
         <servlet-name>PlanListController</servlet-name>
         <servlet-class>controller.plan.PlanListController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlanCampaignController</servlet-name>
+        <servlet-class>controller.plancampaign.PlanCampaignController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EmployeeCreateController</servlet-name>
         <url-pattern>/employees/create</url-pattern>
@@ -43,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>PlanListController</servlet-name>
         <url-pattern>/plans/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlanCampaignController</servlet-name>
+        <url-pattern>/plancampaign/list</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>

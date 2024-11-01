@@ -38,4 +38,11 @@ public class Product {
     public void setPname(String pname) {
         this.pname = pname;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" + "pid=" + pid + ", pname=" + pname + '}';
+    }
+    
+    
 }
