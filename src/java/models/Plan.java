@@ -12,14 +12,14 @@ public class Plan {
     private int plid;
     private Date startd;
     private Date endd;
-    private int did;
+    private Department department;
 
     // Constructor
-    public Plan(int plid, Date startd, Date endd, int did) {
+    public Plan(int plid, Date startd, Date endd, Department department) {
         this.plid = plid;
         this.startd = startd;
         this.endd = endd;
-        this.did = did;
+        this.department = department;
     }
 
     // Getters and setters
@@ -47,14 +47,22 @@ public class Plan {
         this.endd = endd;
     }
 
-    public int getDid() {
-        return did;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDid(int did) {
-        this.did = did;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
+
+   
 
     public Plan() {
     }
+
+    @Override
+    public String toString() {
+        return "Plan{" + "plid=" + plid + ", startd=" + startd + ", endd=" + endd + ", department=" + department + '}';
+    }
+    
 }

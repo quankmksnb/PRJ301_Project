@@ -13,6 +13,10 @@ public class Department {
     private String dname;
     private String dtype;
 
+    public Department() {
+    }
+
+    
     // Constructor
     public Department(int did, String dname, String dtype) {
         this.did = did;
@@ -44,4 +48,10 @@ public class Department {
     public void setDtype(String dtype) {
         this.dtype = dtype;
     }
+
+    @Override
+    public String toString() {
+        return "Department{" + "did=" + did + ", dname=" + dname + ", dtype=" + dtype + '}';
+    }
+    
 }

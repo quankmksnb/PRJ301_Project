@@ -13,9 +13,13 @@ public class Employee {
     private String eid;
     private String ename;
     private String salaryLevel;
-    private int did;
+    private Department department;
     private User createdBy;
 
+    public Employee() {
+    }
+
+    
     public String getEid() {
         return eid;
     }
@@ -40,13 +44,15 @@ public class Employee {
         this.salaryLevel = salaryLevel;
     }
 
-    public int getDid() {
-        return did;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDid(int did) {
-        this.did = did;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
+
+    
 
     public User getCreatedBy() {
         return createdBy;
@@ -55,4 +61,10 @@ public class Employee {
     public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "eid=" + eid + ", ename=" + ename + ", salaryLevel=" + salaryLevel + ", department=" + department + ", createdBy=" + createdBy + '}';
+    }
+    
 }
