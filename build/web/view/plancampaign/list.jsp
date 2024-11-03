@@ -34,7 +34,7 @@
             <div class="card p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2 class="m-0">Plan Campaign List</h2>
-                    <a href="#" class="btn btn-success btn-create">Create New Plan Campaign</a>
+                    <a href="create?plid=${param.plid}" class="btn btn-success btn-create">Create New Plan Campaign</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
@@ -60,7 +60,7 @@
                                         <td>
                                             <div class="d-flex justify-content-center gap-2">
                                                 <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                                                <a onclick="#" class="btn btn-danger btn-sm">Delete</a>
+                                                <a onclick="deleteHandler(${planCampaign.canid})" class="btn btn-danger btn-sm">Delete</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -71,5 +71,13 @@
                 </div>
             </div>
         </div>
+        <script>
+            function deleteHandler(productId) {
+                var check = confirm("Bạn có chắc chắn muốn xóa?");
+                if (check) {
+                    window.location.href = "delete?canid=" + productId;
+                }
+            }
+        </script>
     </body>
 </html>

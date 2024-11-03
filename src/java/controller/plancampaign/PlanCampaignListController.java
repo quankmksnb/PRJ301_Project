@@ -26,7 +26,7 @@ public class PlanCampaignListController extends HttpServlet {
         int plid = Integer.parseInt(request.getParameter("plid"));
         PlanCampaignDBContext pld = new PlanCampaignDBContext();
         List<PlanCampaign> planCampaignList = pld.list();
-
+        
         request.setAttribute("planCampaignList", planCampaignList);
         request.getRequestDispatcher("/view/plancampaign/list.jsp").forward(request, response);
     }

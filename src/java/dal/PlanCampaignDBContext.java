@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Department;
@@ -19,6 +20,57 @@ import models.PlanCampaign;
  * @author Admin
  */
 public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
+
+    public void insertList(List<PlanCampaign> planCampList) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            connection.setAutoCommit(false);  // Bắt đầu giao dịch
+            String sql = "INSERT INTO [dbo].[PlanCampaign]\n"
+                    + "           ([plid]\n"
+                    + "           ,[pid]\n"
+                    + "           ,[quantity]\n"
+                    + "           ,[estimatedeffort])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?)";
+
+            ps = connection.prepareStatement(sql);     // chuyển câu lệnh sang sql server
+            for (PlanCampaign pc : planCampList) {
+                ps.setInt(1, pc.getPlan().getPlid());
+                ps.setInt(2, pc.getProduct().getPid());   // dùng cho các câu lệnh có dấu '?' để thay thế vào '?' tương ứng
+                ps.setInt(3, pc.getQuantity());
+                ps.setFloat(4, pc.getEstimatedEffort());
+                ps.executeUpdate();                // thay có việc run bên sql server
+            }
+
+            connection.commit();  // Commit sau khi insert hết các bản ghi
+        } catch (SQLException ex) {
+            Logger.getLogger(PlanCampaignDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                if (connection != null) {
+                    connection.rollback();  // Rollback nếu có lỗi
+                }
+            } catch (SQLException ex1) {
+                Logger.getLogger(PlanCampaignDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                connection.setAutoCommit(true);  // Đặt lại chế độ auto-commit
+                connection.close();  // Đóng kết nối
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
     @Override
     public void insert(PlanCampaign model) {

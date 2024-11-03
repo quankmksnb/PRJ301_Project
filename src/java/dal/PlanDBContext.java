@@ -67,7 +67,37 @@ public class PlanDBContext extends DBContext<Plan> {
 
     @Override
     public void update(Plan model) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = "UPDATE [dbo].[Plan]\n"
+                    + "   SET [startd] = ?\n"
+                    + "      ,[endd] = ?\n"
+                    + "      ,[did] = ?\n"
+                    + " WHERE plid = ?";
+
+            ps = connection.prepareStatement(sql);     // chuyển câu lệnh sang sql server
+            ps.setDate(1, model.getStartd());   // dùng cho các câu lệnh có dấu '?' để thay thế vào '?' tương ứng
+            ps.setDate(2, model.getEndd());
+            ps.setInt(3, model.getDepartment().getDid());
+            ps.setInt(4, model.getPlid());
+
+            ps.executeUpdate();                // thay có việc run bên sql server
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
@@ -112,13 +142,13 @@ public class PlanDBContext extends DBContext<Plan> {
             Plan p = null;// thay có việc run bên sql server
 
             while (rs.next()) {
-                    p = new Plan();
-                    p.setPlid(rs.getInt(1));
-                    p.setStartd(rs.getDate(2));
-                    p.setEndd(rs.getDate(3));
+                p = new Plan();
+                p.setPlid(rs.getInt(1));
+                p.setStartd(rs.getDate(2));
+                p.setEndd(rs.getDate(3));
 
-                    Department newDepartment = dd.get(rs.getInt(4));
-                    p.setDepartment(newDepartment);
+                Department newDepartment = dd.get(rs.getInt(4));
+                p.setDepartment(newDepartment);
 
                 planList.add(p);
             }

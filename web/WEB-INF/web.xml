@@ -40,6 +40,10 @@
         <servlet-name>PlanUpdateController</servlet-name>
         <servlet-class>controller.plan.PlanUpdateController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlanCampaignCreateController</servlet-name>
+        <servlet-class>controller.plancampaign.PlanCampaignCreateController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EmployeeCreateController</servlet-name>
         <url-pattern>/employees/create</url-pattern>
@@ -75,6 +79,10 @@
     <servlet-mapping>
         <servlet-name>PlanUpdateController</servlet-name>
         <url-pattern>/plans/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlanCampaignCreateController</servlet-name>
+        <url-pattern>/plancampaign/create</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>

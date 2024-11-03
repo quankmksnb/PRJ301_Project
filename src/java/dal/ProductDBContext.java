@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Department;
+import models.Plan;
 import models.Product;
 /**
  *
@@ -34,7 +35,35 @@ public class ProductDBContext extends DBContext<Product> {
 
     @Override
     public ArrayList<Product> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Product> productList = new ArrayList<>();
+        PreparedStatement ps = null;
+        try {
+            String sql = "select * from [Product]";
+
+            ps = connection.prepareStatement(sql);     // chuyển câu lệnh sang sql server
+            ResultSet rs = ps.executeQuery();
+            Product p = null;
+
+            while (rs.next()) {
+                p = new Product();
+                p.setPid(rs.getInt(1));
+                p.setPname(rs.getString(2));
+
+                productList.add(p);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return productList;
     }
 
     @Override

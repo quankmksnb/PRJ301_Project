@@ -2,56 +2,56 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.plan;
 
-import dal.DepartmentDBContext;
-import dal.PlanDBContext;
+package controller.plancampaign;
+
+import dal.PlanCampaignDBContext;
+import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import models.Plan;
-import java.sql.*;
-import models.Department;
+import models.PlanCampaign;
+import models.Product;
 
 /**
  *
  * @author Admin
  */
-public class PlanUpdateController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+public class PlanCampaignCreateController extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PlanUpdateController</title>");
+            out.println("<title>Servlet PlanCampaignCreateController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PlanUpdateController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PlanCampaignCreateController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -59,20 +59,15 @@ public class PlanUpdateController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String plid = request.getParameter("plid");
-        PlanDBContext pd = new PlanDBContext();
-        DepartmentDBContext dd = new DepartmentDBContext();
+    throws ServletException, IOException {
+        ProductDBContext pd = new ProductDBContext();
+        List<Product> productList = pd.list();
+        request.setAttribute("proList", productList);
+        request.getRequestDispatcher("/view/plancampaign/create.jsp").forward(request, response);
+    } 
 
-        Plan p = pd.get(Integer.parseInt(plid));
-        request.setAttribute("oldPlan", p);
-        request.setAttribute("depts", dd.get("workshop"));
-        request.getRequestDispatcher("/view/plan/update.jsp").forward(request, response);
-    }
-
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -80,25 +75,36 @@ public class PlanUpdateController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        PlanDBContext pd = new PlanDBContext();
+    throws ServletException, IOException {
+        PlanCampaignDBContext pld = new PlanCampaignDBContext();
+        List<PlanCampaign> pcList = new ArrayList<>();
+        Plan plan = new Plan();
+        Product product = new Product();
         
-        int planid = Integer.parseInt(request.getParameter("planid"));
-        String startd = request.getParameter("startd");
-        String endd = request.getParameter("endd");
-        int department = Integer.parseInt(request.getParameter("department"));
-        Department d = new Department();
-        d.setDid(department);
-
-        Plan p = new Plan(planid, Date.valueOf(startd), Date.valueOf(endd), d);
+        String plid = request.getParameter("plid");
+        String[] pid = request.getParameterValues("pid");
+        for(String x : pid){
+            PlanCampaign pc = new PlanCampaign();
+            
+            int quantity = Integer.parseInt(request.getParameter("quantity"+x));
+            float effort = Float.parseFloat(request.getParameter("estimatedEffort"+x));
+            plan.setPlid(Integer.parseInt(plid));
+            product.setPid(Integer.parseInt(x));
+            
+            pc.setQuantity(quantity);
+            pc.setEstimatedEffort(effort);
+            pc.setPlan(plan);
+            pc.setProduct(product);
+            
+            pcList.add(pc);
+        }
+        pld.insertList(pcList);
         
-        pd.update(p);
-        response.sendRedirect("list");
-    }
+        response.sendRedirect("../plancampaign/list?plid="+Integer.parseInt(plid));
+    }   
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
