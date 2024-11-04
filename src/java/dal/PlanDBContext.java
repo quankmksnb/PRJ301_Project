@@ -102,26 +102,34 @@ public class PlanDBContext extends DBContext<Plan> {
 
     @Override
     public void delete(Plan model) {
-        PreparedStatement ps = null;
+        PreparedStatement ps1 = null;
+        PreparedStatement ps2 = null;
         ResultSet rs = null;
         try {
-            String sql = "DELETE FROM [dbo].[Plan]\n"
-                    + "      WHERE plid = ?";
+            connection.setAutoCommit(false);
+            String deletePlanCampaignSQL = "DELETE FROM PlanCampaign WHERE plid = ?";
+            ps1 = connection.prepareStatement(deletePlanCampaignSQL);
+            ps1.setInt(1, model.getPlid());
+            ps1.executeUpdate();
+            
+            String deletePlanSQL = "DELETE FROM [dbo].[Plan] WHERE plid = ?";
+            ps2 = connection.prepareStatement(deletePlanSQL);
+            ps2.setInt(1, model.getPlid());
+            ps2.executeUpdate();
 
-            ps = connection.prepareStatement(sql);     // chuyển câu lệnh sang sql server
-            ps.setInt(1, model.getPlid());   // dùng cho các câu lệnh có dấu '?' để thay thế vào '?' tương ứng
-
-            ps.executeUpdate();                // thay có việc run bên sql server
-
+            connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                if (rs != null) {
-                    rs.close();
+                if (ps1 != null) {
+                    ps1.close();
                 }
-                if (ps != null) {
-                    ps.close();
+                if (ps2 != null) {
+                    ps2.close();
+                }
+                if (connection != null) {
+                    connection.setAutoCommit(true);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);

@@ -74,17 +74,105 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
 
     @Override
     public void insert(PlanCampaign model) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement ps = null;
+        try {
+            String sql = "INSERT INTO [dbo].[PlanCampaign]\n"
+                    + "           ([plid]\n"
+                    + "           ,[pid]\n"
+                    + "           ,[quantity]\n"
+                    + "           ,[estimatedeffort])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?)";
+
+            ps = connection.prepareStatement(sql);     // chuyển câu lệnh sang sql server
+
+            ps.setInt(1, model.getPlan().getPlid());
+            ps.setInt(2, model.getProduct().getPid());
+            ps.setInt(3, model.getQuantity());
+            ps.setFloat(4, model.getEstimatedEffort());
+            int rowsInserted = ps.executeUpdate(); // kiểm tra số dòng được thêm vào
+
+            if (rowsInserted > 0) {
+                System.out.println("Insert successful: " + model.getProduct().getPid());
+            } else {
+                System.out.println("Insert failed for: " + model.getProduct().getPid());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PlanCampaignDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanCampaignDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
     public void update(PlanCampaign model) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = "UPDATE [dbo].[PlanCampaign]\n"
+                    + "   SET [quantity] = ?\n"
+                    + "      ,[estimatedeffort] = ?\n"
+                    + " WHERE canid = ?";
+
+            ps = connection.prepareStatement(sql);     // chuyển câu lệnh sang sql server
+            ps.setInt(1, model.getQuantity());   // dùng cho các câu lệnh có dấu '?' để thay thế vào '?' tương ứng
+            ps.setFloat(2, model.getEstimatedEffort());
+            ps.setInt(3, model.getCanid());
+
+            ps.executeUpdate();                // thay có việc run bên sql server
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
     public void delete(PlanCampaign model) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = "DELETE FROM [dbo].[PlanCampaign]\n"
+                    + "      WHERE canid = ?";
+
+            ps = connection.prepareStatement(sql);     // chuyển câu lệnh sang sql server
+            ps.setInt(1, model.getCanid());   // dùng cho các câu lệnh có dấu '?' để thay thế vào '?' tương ứng
+
+            ps.executeUpdate();                // thay có việc run bên sql server
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
@@ -142,7 +230,7 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
                 e.setPlan(pld.get(rs.getInt(2)));
                 e.setProduct(pd.get(rs.getInt(3)));
                 e.setQuantity(rs.getInt(4));
-                e.setEstimatedEffort(rs.getInt(5));
+                e.setEstimatedEffort(rs.getFloat(5));
 
                 return e;
             }
@@ -158,6 +246,43 @@ public class PlanCampaignDBContext extends DBContext<PlanCampaign> {
             }
         }
         return null;
+    }
+
+    public List<PlanCampaign> listByPlanId(int plid) {
+        List<PlanCampaign> planCampaignList = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT * FROM PlanCampaign WHERE plid = ?";
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, plid);
+            rs = ps.executeQuery();
+            ProductDBContext productDB = new ProductDBContext();
+            PlanDBContext planDB = new PlanDBContext();
+            while (rs.next()) {
+                PlanCampaign pc = new PlanCampaign();
+                pc.setCanid(rs.getInt("canid"));
+                pc.setPlan(planDB.get(rs.getInt("plid")));
+                pc.setProduct(productDB.get(rs.getInt("pid")));
+                pc.setQuantity(rs.getInt("quantity"));
+                pc.setEstimatedEffort(rs.getFloat("estimatedeffort"));
+                planCampaignList.add(pc);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PlanCampaignDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PlanCampaignDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return planCampaignList;
     }
 
     public static void main(String[] args) {

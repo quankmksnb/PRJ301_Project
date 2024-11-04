@@ -59,8 +59,8 @@
                                         <td>${planCampaign.estimatedEffort}</td>
                                         <td>
                                             <div class="d-flex justify-content-center gap-2">
-                                                <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                                                <a onclick="deleteHandler(${planCampaign.canid})" class="btn btn-danger btn-sm">Delete</a>
+                                                <a href="update?canid=${planCampaign.canid}" class="btn btn-primary btn-sm">Edit</a>
+                                                <a onclick="deleteHandler(${planCampaign.canid}, ${planCampaign.plan.plid})" class="btn btn-danger btn-sm">Delete</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -72,10 +72,10 @@
             </div>
         </div>
         <script>
-            function deleteHandler(productId) {
+            function deleteHandler(canid, plid) {
                 var check = confirm("Bạn có chắc chắn muốn xóa?");
                 if (check) {
-                    window.location.href = "delete?canid=" + productId;
+                    window.location.href = "delete?plid=" + plid + "&canid=" + canid;
                 }
             }
         </script>

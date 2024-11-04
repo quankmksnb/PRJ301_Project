@@ -57,6 +57,7 @@
                                     <td>${plan.department.dname}</td>
                                     <td>
                                         <div class="d-flex justify-content-center gap-2">
+                                            <a href="../schedulecampaign/list?plid=${plan.plid}" class="btn btn-success btn-sm text-white">Schedule</a>
                                             <a href="../plancampaign/list?plid=${plan.plid}" class="btn btn-info btn-sm text-white">Details</a>
                                             <a href="update?plid=${plan.plid}" class="btn btn-primary btn-sm">Edit</a>
                                             <a onclick="deleteHandler(${plan.plid})" class="btn btn-danger btn-sm">Delete</a>

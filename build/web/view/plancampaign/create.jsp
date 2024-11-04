@@ -11,7 +11,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
         <title>Create Plan Campaign</title>
         <style>
             body {
@@ -47,7 +46,7 @@
                         </thead>
                         <tbody>
                         <input type="hidden" name="plid" value="${param.plid}" />
-                            <c:forEach items="${requestScope.proList}" var="pro">
+                            <c:forEach items="${availableProducts}" var="pro">
                                 <tr>
                                     <td>${pro.pname}<input type="hidden" name="pid" value="${pro.pid}"/></td>
                                     <td><input type="number" class="form-control text-center" name="quantity${pro.pid}"></td>

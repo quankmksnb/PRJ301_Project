@@ -98,5 +98,5 @@ public class ProductDBContext extends DBContext<Product> {
         return null;
     }
 
-    
+
 }
