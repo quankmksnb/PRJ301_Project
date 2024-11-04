@@ -4,37 +4,33 @@
  */
 package models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Admin
  */
 public class Feature {
-     private int featureId;
-    private String featureName;
+
+    private int id;
+    private String name;
     private String url;
+    private ArrayList<Role> roles = new ArrayList<>();
 
-    // Constructor
-    public Feature(int featureId, String featureName, String url) {
-        this.featureId = featureId;
-        this.featureName = featureName;
-        this.url = url;
+    public int getId() {
+        return id;
     }
 
-    // Getters and setters
-    public int getFeatureId() {
-        return featureId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setFeatureId(int featureId) {
-        this.featureId = featureId;
+    public String getName() {
+        return name;
     }
 
-    public String getFeatureName() {
-        return featureName;
-    }
-
-    public void setFeatureName(String featureName) {
-        this.featureName = featureName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUrl() {
@@ -43,5 +39,13 @@ public class Feature {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public ArrayList<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(ArrayList<Role> roles) {
+        this.roles = roles;
     }
 }

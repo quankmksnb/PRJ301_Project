@@ -4,6 +4,7 @@
  */
 package controller.plan;
 
+import controller.accesscontroll.BaseRBACController;
 import dal.DepartmentDBContext;
 import dal.PlanDBContext;
 import java.io.IOException;
@@ -16,26 +17,30 @@ import java.util.ArrayList;
 import models.Department;
 import models.Plan;
 import java.sql.*;
+import models.User;
 /**
  *
  * @author Admin
  */
-public class PlanCreateController extends HttpServlet {
+public class PlanCreateController extends BaseRBACController {
+
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    @Override
+    protected void doAuthorizedGet(HttpServletRequest req, HttpServletResponse resp, User loggeduser) throws ServletException, IOException {
         DepartmentDBContext dd = new DepartmentDBContext();
         ArrayList<Department> departments = dd.get("workshop");
 
-        request.setAttribute("depts", departments);
-        request.getRequestDispatcher("/view/plan/create.jsp").forward(request, response);
-
+        req.setAttribute("depts", departments);
+        req.getRequestDispatcher("/view/plan/create.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doAuthorizedPost(HttpServletRequest request, HttpServletResponse response, User loggeduser) throws ServletException, IOException {
         Plan p = new Plan();
         p.setStartd(Date.valueOf(request.getParameter("startd")));
         p.setEndd(Date.valueOf(request.getParameter("endd")));
@@ -50,10 +55,5 @@ public class PlanCreateController extends HttpServlet {
         
         response.sendRedirect("../plans/list");
     }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

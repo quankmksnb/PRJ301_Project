@@ -23,9 +23,46 @@
             .btn-create {
                 font-weight: bold;
             }
+            .logout-button {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+            }
+            .navbar {
+                width: 100%;
+                background-color: #f8f9fa !important;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 1030;
+            }
         </style>
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-infor">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Quản Lý Công Ty</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../employees/list">Employee</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../plans/list">Plan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger text-white" href="../logout">Log Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="container mt-5">
             <div class="card p-4">
                 <h2 class="text-center mb-4">Update Plan</h2>

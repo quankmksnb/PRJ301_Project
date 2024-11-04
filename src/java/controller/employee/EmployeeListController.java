@@ -4,6 +4,7 @@
  */
 package controller.employee;
 
+import controller.accesscontroll.BaseRBACController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,33 +15,32 @@ import dal.EmployeeDBContext;
 import java.util.ArrayList;
 import models.Employee;
 import java.util.List;
+import models.User;
 
 /**
  *
  * @author Admin
  */
-public class EmployeeListController extends HttpServlet {
+public class EmployeeListController extends BaseRBACController {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        EmployeeDBContext ed = new EmployeeDBContext();
-        List<Employee> listEmp = ed.list();
-        
-        request.setAttribute("listEmp", listEmp);
-        request.getRequestDispatcher("/view/employee/list.jsp").forward(request, response);
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
 
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    @Override
+    protected void doAuthorizedGet(HttpServletRequest req, HttpServletResponse resp, User loggeduser) throws ServletException, IOException {
+        EmployeeDBContext ed = new EmployeeDBContext();
+        List<Employee> listEmp = ed.list();
+        
+        req.setAttribute("listEmp", listEmp);
+        req.getRequestDispatcher("/view/employee/list.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doAuthorizedPost(HttpServletRequest req, HttpServletResponse resp, User loggeduser) throws ServletException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }

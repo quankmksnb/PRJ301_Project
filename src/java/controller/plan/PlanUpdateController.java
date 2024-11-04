@@ -4,6 +4,7 @@
  */
 package controller.plan;
 
+import controller.accesscontroll.BaseRBACController;
 import dal.DepartmentDBContext;
 import dal.PlanDBContext;
 import java.io.IOException;
@@ -15,51 +16,21 @@ import jakarta.servlet.http.HttpServletResponse;
 import models.Plan;
 import java.sql.*;
 import models.Department;
+import models.User;
 
 /**
  *
  * @author Admin
  */
-public class PlanUpdateController extends HttpServlet {
+public class PlanUpdateController extends BaseRBACController {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PlanUpdateController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PlanUpdateController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    @Override
+    protected void doAuthorizedGet(HttpServletRequest request, HttpServletResponse response, User loggeduser) throws ServletException, IOException {
         String plid = request.getParameter("plid");
         PlanDBContext pd = new PlanDBContext();
         DepartmentDBContext dd = new DepartmentDBContext();
@@ -70,17 +41,8 @@ public class PlanUpdateController extends HttpServlet {
         request.getRequestDispatcher("/view/plan/update.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doAuthorizedPost(HttpServletRequest request, HttpServletResponse response, User loggeduser) throws ServletException, IOException {
         PlanDBContext pd = new PlanDBContext();
         
         int planid = Integer.parseInt(request.getParameter("planid"));
@@ -95,15 +57,5 @@ public class PlanUpdateController extends HttpServlet {
         pd.update(p);
         response.sendRedirect("list");
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

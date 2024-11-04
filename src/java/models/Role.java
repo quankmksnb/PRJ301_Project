@@ -4,35 +4,48 @@
  */
 package models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Admin
  */
 public class Role {
-    private int roleId;
-    private String roleName;
+    private int id;
+    private String name;
+    private ArrayList<User> users = new ArrayList();
+    private ArrayList<Feature> features = new ArrayList<>();
 
-    public Role() {
+    public int getId() {
+        return id;
     }
 
-    public Role(int roleId, String roleName) {
-        this.roleId = roleId;
-        this.roleName = roleName;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public String getName() {
+        return name;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public ArrayList<User> getUsers() {
+        return users;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
     }
+
+    public ArrayList<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(ArrayList<Feature> features) {
+        this.features = features;
+    }
+    
 }

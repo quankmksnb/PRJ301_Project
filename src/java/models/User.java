@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Admin
@@ -11,15 +13,15 @@ package models;
 public class User {
     private String username;
     private String password;
-    private String displayName;
+    private String displayname;
+    private ArrayList<Role> roles = new ArrayList<>();
 
-    public User() {
+    public ArrayList<Role> getRoles() {
+        return roles;
     }
 
-    public User(String username, String password, String displayName) {
-        this.username = username;
-        this.password = password;
-        this.displayName = displayName;
+    public void setRoles(ArrayList<Role> roles) {
+        this.roles = roles;
     }
 
     public String getUsername() {
@@ -38,12 +40,12 @@ public class User {
         this.password = password;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getDisplayname() {
+        return displayname;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
     }
     
 }

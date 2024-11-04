@@ -4,6 +4,7 @@
  */
 package controller.plan;
 
+import controller.accesscontroll.BaseRBACController;
 import dal.PlanDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,16 +13,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Plan;
+import models.User;
 
 /**
  *
  * @author Admin
  */
-public class PlanDeleteControler extends HttpServlet {
+public class PlanDeleteControler extends BaseRBACController {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    @Override
+    protected void doAuthorizedGet(HttpServletRequest request, HttpServletResponse response, User loggeduser) throws ServletException, IOException {
         int pid = Integer.parseInt(request.getParameter("plid"));
         Plan p = new Plan();
         p.setPlid(pid);
@@ -33,14 +39,8 @@ public class PlanDeleteControler extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    protected void doAuthorizedPost(HttpServletRequest req, HttpServletResponse resp, User loggeduser) throws ServletException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }
